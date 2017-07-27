@@ -105,8 +105,8 @@ PicRecover::~PicRecover()
 
 QGraphicsScene* PicRecover::PicReSort(const QString &srcPic){
     QImage *srcImg = new QImage(srcPic);
-    QImage  *painterImg = new QImage(312, 116,QImage::Format_RGBA8888);
-
+    QPixmap *painterImg = new QPixmap(312,116);
+    painterImg->fill(Qt::transparent);//用透明色填充
     QPainter* painter = new QPainter(painterImg);
     for (int i = 0; i<52; i++){
         QPoint cur_pos = QPoint((i%26)*10, ((i/26))*58);
@@ -118,7 +118,8 @@ QGraphicsScene* PicRecover::PicReSort(const QString &srcPic){
     delete painter;
     delete srcImg;
     QGraphicsScene* sceneImg = new QGraphicsScene();
-    sceneImg->addPixmap(QPixmap::fromImage(*painterImg));
+//    painterImg->save()//这边到时候多一个参destPos
+    sceneImg->addPixmap(*painterImg);
     delete painterImg;
     return sceneImg;
 
@@ -126,6 +127,7 @@ QGraphicsScene* PicRecover::PicReSort(const QString &srcPic){
 
 void PicRecover::test(const QString &srcPic){
     QImage *srcImg = new QImage(srcPic);
+    //经过验证，应该处理为bmp透明画板，所以下面是错的
     QImage  *painterImg = new QImage(312,116,QImage::Format_RGBA8888);
 
     QPainter* painter = new QPainter(painterImg);
