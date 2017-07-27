@@ -24,7 +24,7 @@ PicRecover::PicRecover(QWidget *parent) :
 {
     ui->setupUi(this);
     //show original pic
-    QImage* oriImg = new QImage("../QPicRecover/toFix.jpg");
+    QImage* oriImg = new QImage("../gPicRecover/toFix.jpg");
     QGraphicsScene* sceneOriImg = new QGraphicsScene();
     sceneOriImg->addPixmap(QPixmap::fromImage(*oriImg));
     ui->originalImg->setScene(sceneOriImg);
@@ -32,7 +32,7 @@ PicRecover::PicRecover(QWidget *parent) :
     delete oriImg;
 
     //pic recover
-    QGraphicsScene* sceneImg  = PicReSort("../QPicRecover/toFix.jpg");
+    QGraphicsScene* sceneImg  = PicReSort("../gPicRecover/toFix.jpg");
     ui->resultImg->setScene(sceneImg);
     ui->resultImg->show();
 
@@ -105,7 +105,7 @@ PicRecover::~PicRecover()
 
 QGraphicsScene* PicRecover::PicReSort(const QString &srcPic){
     QImage *srcImg = new QImage(srcPic);
-    QImage  *painterImg = new QImage(312, 116,QImage::Format_RGB32);
+    QImage  *painterImg = new QImage(312, 116,QImage::Format_RGBA8888);
 
     QPainter* painter = new QPainter(painterImg);
     for (int i = 0; i<52; i++){
@@ -126,7 +126,7 @@ QGraphicsScene* PicRecover::PicReSort(const QString &srcPic){
 
 void PicRecover::test(const QString &srcPic){
     QImage *srcImg = new QImage(srcPic);
-    QImage  *painterImg = new QImage(312,116,QImage::Format_RGB32);
+    QImage  *painterImg = new QImage(312,116,QImage::Format_RGBA8888);
 
     QPainter* painter = new QPainter(painterImg);
     for (int i = 0; i<52; i++){
